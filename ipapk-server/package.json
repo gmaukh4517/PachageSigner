@@ -1,0 +1,40 @@
+{
+  "name": "ipapk-server",
+  "version": "0.2.9",
+  "description": "Create a HTTPS Server to install ipa and apk locally",
+  "dependencies": {
+    "adm-zip": "^0.4.7",
+    "apk-parser3": "^0.1.6",
+    "browserify": "^16.5.1",
+    "browserify-shim": "^3.8.14",
+    "commander": "^2.9.0",
+    "dbushell-grunt-mustatic": "^0.1.1",
+    "express": "^4.13.1",
+    "fs-extra": "^0.30.0",
+    "ipa-extract-info": "^1.2.2",
+    "multiparty": "^4.1.2",
+    "mustache": "^2.1.2",
+    "shelljs": "^0.7.0",
+    "sqlite3": "4.1.1",
+    "strftime": "^0.9.2",
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.1"
+  },
+  "bin": {
+    "ipapk-server": "ipapk-server.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhao0/ipapk-server.git"
+  },
+  "author": "zhao0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhao0/ipapk-server/issues"
+  },
+  "homepage": "https://github.com/zhao0/ipapk-server"
+}

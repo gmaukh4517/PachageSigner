@@ -181,6 +181,15 @@ if [[ ${UPLOAD_ADDRESS} != "Re-Bale Only" ]]; then
             echo -e 'ipa提交提交fir.im失败\n'
             failed
         fi
+    elif [[ ${UPLOAD_ADDRESS} == '内部' ]]; then
+        echo '发布IPA至-->>>--内部平台'
+        curl 'https://ip:port//upload' -F "package=@路径地址.ipa" -F "changelog=日志" --insecure
+        if [ $? = 0 ];then
+            echo -e 'ipa提交内部平台成功\n'
+        else
+            echo -e 'ipa提交提交内部平台失败\n'
+            failed
+        fi
     fi
 else
     echo -e '执行完成\n'
