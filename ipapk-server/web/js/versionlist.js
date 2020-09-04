@@ -19,6 +19,7 @@ var main = new Vue({
 		pageCount: 10,
 		apps: [],
 		show_load_more_apps_button: true,
+		changelog_box_show_index:-1,
 	},
 	methods: {
 		loadApps: function () {
@@ -39,7 +40,7 @@ var main = new Vue({
 			if(event) {
    				event.stopPropagation ? event.stopPropagation(): event.cancelBubble = true;
   			}
-  			if (isPC()) {
+  			if (this.isPC()) {
   				window.location.href = window.location.origin + "/ipa/" + guid + ".ipa";	
   			}
 		},
@@ -53,8 +54,18 @@ var main = new Vue({
 			var bIsAndroid= sUserAgent.match(/android/i) == "android";
 			var bIsCE= sUserAgent.match(/windows ce/i) == "windows ce";
 			var bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile";
-			return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM);
-		}
+			return !(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM);
+		},
+		toggleChangelog:function(index,event){
+			if(event)
+   				event.stopPropagation ? event.stopPropagation(): event.cancelBubble = true;
+  			
+  			if (index != this.changelog_box_show_index) {
+  				this.changelog_box_show_index = index;	
+  			}else{
+  				this.changelog_box_show_index = -1;
+  			}
+		},
 	},
 	computed: {
 		has_data: function () {

@@ -1,3 +1,4 @@
+
 var main = new Vue({
 	el: '.platform_wrapper',
 	data: {
@@ -9,6 +10,7 @@ var main = new Vue({
 		show_load_more_apps_button: false,
 		iosApps:[],
 		androidApps:[],
+		changelog_box_show_index:-1,
 	},
 	methods: {
 		switchPlatform: function (event) {
@@ -38,7 +40,6 @@ var main = new Vue({
 
 			var that = this;
 			axios.get("/apps/"+this.selected_paltform+"/"+apps_page+"/"+this.pageCount).then(function(response){
-	            console.log(response.data)
 	            if (that.selected_paltform == 'ios') {
 	            	that.ios_page++
 	            	that.apps = that.iosApps = that.iosApps.concat(response.data)
@@ -49,7 +50,7 @@ var main = new Vue({
 	            that.show_load_more_apps_button = response.data.length > 9
 	        });
 		},
-		viewAllVersion: function (event) {
+		viewAllVersion: function (e) {
 			if (event) {
 				 event.stopPropagation ? event.stopPropagation(): event.cancelBubble = true;
 			}
@@ -61,15 +62,6 @@ var main = new Vue({
   			}
 			window.location.href = url;
 		},
-		downloadFile:function(guid,event){
-		
-			if(event) {
-   				event.stopPropagation ? event.stopPropagation(): event.cancelBubble = true;
-  			}
-  			if (isPC()) {
-  				window.location.href += "ipa/" + guid + ".ipa";	
-  			}
-		},
 		isPC:function(){
 			var sUserAgent= navigator.userAgent.toLowerCase();
 			var bIsIpad= sUserAgent.match(/ipad/i) == "ipad";
@@ -80,7 +72,32 @@ var main = new Vue({
 			var bIsAndroid= sUserAgent.match(/android/i) == "android";
 			var bIsCE= sUserAgent.match(/windows ce/i) == "windows ce";
 			var bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile";
-			return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM);
+			return !(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM);
+		},
+		downloadFile:function(guid,event){
+			if(event) {
+   				event.stopPropagation ? event.stopPropagation(): event.cancelBubble = true;
+  			}
+  			if (this.isPC()) {
+  				window.location.href += "ipa/" + guid + ".ipa";	
+  			}
+		},
+		toggleChangelog:function(index,event){
+			if(event)
+   				event.stopPropagation ? event.stopPropagation(): event.cancelBubble = true;
+  			
+  			if (index != this.changelog_box_show_index) {
+  				this.changelog_box_show_index = index;	
+  			}else{
+  				this.changelog_box_show_index = -1;
+  			}
+		},
+		uploadFiles:function(event){
+			if(event)
+   				event.stopPropagation ? event.stopPropagation(): event.cancelBubble = true;
+   			if (this.isPC()) {
+  				window.location.href += "/uploadFiles.html";	
+  			}
 		}
 	}
 });
@@ -88,11 +105,12 @@ new Vue({
 	el: '.qrcode_wrapper',
 	data: {
 		qrcode_box_show: true,
+		
 	},
 	methods: {
 		toggleQrcode: function () {
 			this.qrcode_box_show = !this.qrcode_box_show
-		}
+		},
 	}
 });
 

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>内部应用分发服务</title>
 <!--H5页面窗口自动调整到设备宽度，并禁止用户缩放页面-->
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
 <!--将网站添加到主屏幕快速启动方式，仅针对ios的safari顶端状态条的样式  -->  
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
 <!--忽略将页面中的数字识别为电话号码-->
@@ -20,11 +20,14 @@
 </head>
 <body>
 <div class="wrapper">
-	<header class="header">
-		<div align="center"><h2>应用分发服务</h2></div>
+    <header class="header">
+        <div align="center"><h2>应用分发服务</h2></div>
         <a class="attention" href="/cer/myCA.cer">如果出现【无法验证服务器身份】或【无法链接到】，请点击链接安装证书</a>
         <p class="attention">iOS 10.3后 默认不信任安装的证书，需要手动信任。</p>
         <span>设置 > 通用 > 关于 > 证书信任设置 > 对需要的证书启用完全信任</span>
+        <br/>
+        <br/>
+        <a class="upload_btn" href="uploadFiles.html">上传包</a>
     </header>
     <div class="app_wrapper">
         <div class="platform_wrapper">
@@ -33,17 +36,22 @@
                 <span class="platform_title" v-on:click="switchPlatform" v-bind:class="{ selected_title: selected_paltform === 'android' }">Android</span>
             </span>
             <ul class="app_list">
-                <li v-for="app in apps" :bundle-id="app.bundleID"  v-on:click="viewAllVersion">
-                    <div class="app_info">
-                        <span class="app_milieu">{{app.milieu}}</span>
-                        <a v-on:click="downloadFile(app.guid,$event)"><img :src="app.icon"  onerror="this.src=window.location.href +'icon/appIcon.png';this.onerror=null"></a>
-                        <div class="info_box">
-                            <span class="app_name">{{app.displayName || app.name}}</span>
-                            <span class="app_size_version">{{app.size}}  &nbsp {{app.version}} ({{app.build}})</span>
-                            <span class="update_time"> 更新: {{app.uploadTime}}</span>
+                <li v-for="(app, index) in apps" :bundle-id="app.bundleID"  v-on:click="viewAllVersion">
+                    <div>
+                        <div class="app_info">
+                            <span class="app_milieu">{{app.milieu}}</span>
+                            <a v-on:click="downloadFile(app.guid,$event)"> <img :src="app.icon" onerror="this.src=window.location.href+'icon/appIcon.png';this.onerror=null"></a>
+                            <div class="info_box">
+                                <span class="app_name">{{app.displayName || app.name}}</span>
+                                <span class="app_size_version">{{app.size}}  &nbsp {{app.version}} ({{app.build}})</span>
+                                <span class="update_time"> 更新: {{app.uploadTime}}</span>
+                                <span class="changelog"  v-on:click="toggleChangelog(index,$event)">点击查看日志</span>
+                            </div>
+                            <a class="down_btn" v-on:click="installation(app.url,$event)">安装</a>
+                        </div>
+                        <div :class="changelog_box_show_index == index ? 'changelog_box changelog_box_show':'changelog_box'">
                             <span class="changelog">{{app.changelog ? app.changelog : ""}}</span>
                         </div>
-                        <a class="down_btn" v-on:click="installation(app.url,$event)">安装</a>
                     </div>
                 </li>
             </ul>

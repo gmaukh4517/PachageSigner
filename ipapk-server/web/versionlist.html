@@ -28,17 +28,22 @@
     <div class="app_wrapper">
         <div class="platform_wrapper">
             <ul class="app_list" v-if="has_data">
-                <li v-for="app in apps" :key="app.id">
-                    <div class="app_info">
-                        <span class="app_milieu">{{app.milieu}}</span>
-                         <a v-on:click="downloadFile(app.guid,$event)"><img :src="app.icon" onerror="this.src=window.location.origin+'/icon/appIcon.png';this.onerror=null"></a>
-                        <div class="info_box">
-                            <span class="app_name">{{app.displayName || app.name}}</span>
-                            <span class="app_size_version">{{app.size}}  &nbsp {{app.version}} ({{app.build}})</span>
-                            <span class="update_time">更新: {{app.uploadTime}}</span>
+                <li v-for="(app, index) in apps" :key="app.id">
+                    <div>
+                        <div class="app_info">
+                            <span class="app_milieu">{{app.milieu}}</span>
+                             <a v-on:click="downloadFile(app.guid,$event)"><img :src="app.icon" onerror="this.src=window.location.origin+'/icon/appIcon.png';this.onerror=null"></a>
+                            <div class="info_box">
+                                <span class="app_name">{{app.displayName || app.name}}</span>
+                                <span class="app_size_version">{{app.size}}  &nbsp {{app.version}} ({{app.build}})</span>
+                                <span class="update_time">更新: {{app.uploadTime}}</span>
+                                <span class="changelog"  v-on:click="toggleChangelog(index,$event)">点击查看日志</span>
+                            </div>
+                            <a class="down_btn" v-on:click="installation(app.url,$event)">安装</a>
+                        </div>
+                        <div :class="changelog_box_show_index == index ? 'changelog_box changelog_box_show':'changelog_box'">
                             <span class="changelog">{{app.changelog ? app.changelog : ""}}</span>
                         </div>
-                        <a class="down_btn" v-on:click="installation(app.url,$event)">安装</a>
                     </div>
                 </li>
             </ul>

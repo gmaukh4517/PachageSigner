@@ -23,12 +23,12 @@ title
   text-decoration: none;
 }
 html,body{ width:100%; }
-body{ 	
-	max-width:640px; 
-	overflow-y:scroll;
-	font-family:Helvetica, STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Arial; 
-	margin:0 auto; 
-	font-size:1.4rem;}
+body{   
+  max-width:640px; 
+  overflow-y:scroll;
+  font-family:Helvetica, STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Arial; 
+  margin:0 auto; 
+  font-size:1.4rem;}
 a {
   color: #0076cc;
 }
@@ -49,6 +49,8 @@ a {
 .support { text-align: center; font-size:0.8rem; color:#9B9B9B;line-height: 3rem;}
 .header .attention{ font-size:1.5rem; padding-left:1.2rem; position:relative;}
 .header .attention::before{ content:""; position:absolute; width:0.6rem; height:0.6rem; border-radius:50%; background:#ccc; left:0; top:0.4rem;}
+
+.upload_btn {margin-top:1rem;  padding-right:2rem; color:#0076cc;}
 
 .qrcode_btn{ margin-top:1rem; padding:0.6rem 1.4rem; padding-right:2rem; color:#0076cc; display:inline-block; background:url(../images/open_icon.png) no-repeat right bottom; background-size:2rem;}
 .open{ background:url(../images/open_icon.png) no-repeat right top; background-size:2rem;}
@@ -96,5 +98,120 @@ a {
 
 .platform_wrapper .down_btn{ float:right; width:5rem; height:2.6rem; margin:1.4rem 0; font-size:1.2rem;  border:0.12rem solid #0076cc; border-radius:0.4rem; outline:none;  background:#fff; color:#0076cc; text-align:center; line-height:2.6rem;}
 
-.changelog {display: block;overflow:hidden; text-overflow:ellipsis; }
 .moreAppButton {width:100%;padding: 0.3rem; margin-top: 10px; margin-bottom: 10px; text-align: center;font-size:1.2rem;background-color:lightgray; border-radius:0.4rem;color:#989898;width: 100%; height: 2rem;line-height: 2rem;}
+
+.changelog_box{ overflow:hidden; background:#eee; height:0; transition:all 0.4s; position:relative; border-bottom-right-radius:0.4rem; border-bottom-left-radius:0.4rem;}
+.changelog_box_show{ height:5.5rem;}
+.changelog_box span{margin-top: 0.2rem;margin-left: 0.4rem; margin-bottom: 0.4rem;margin-right: 0.4rem; color:#aaa; font-size:1.2rem;}
+.changelog {display: block;overflow:hidden; text-overflow:ellipsis; }
+
+
+.upload-drag {
+  margin-top: 1rem;
+  position: relative;
+  padding: 3rem;
+  border: 1px dashed #e2e2e2;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  color: #999;
+  margin-bottom: 1rem;
+}
+
+.upload-hide {
+  display: none!important;
+}
+.upload-file-input {
+  display: none!important;
+  opacity: .01;
+  filter: Alpha(opacity=1);
+}
+
+.upload-files-wrapper{ 
+  width:100%; 
+  height:auto;  
+  box-sizing:border-box;
+  padding:0 1.4rem; 
+  border-top:1px solid #ccc; 
+  margin-top:1rem; 
+  background:#fff; 
+}
+
+.upload-file-li{
+  border-radius: 3px;
+  background-color: #f3f5f7;
+}
+
+.upload-file{
+  padding: 0.5rem 0rem; 
+  height:5.4rem;
+  position: relative;
+}
+
+.upload-file span{
+  margin-left: 1rem;
+  font-size:1.2rem; 
+  display: block;
+}
+
+.upload-file-info{
+  width:40%;
+  height: 100%;
+  color: #999;
+  float:left;
+  display: flex;
+  align-items: center;
+  text-align: justify;
+}
+
+.upload-file-milieu{
+  max-width:20%;
+  height: 100%;
+  float:left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: justify;
+}
+
+.upload-file-milieu .milieuSelect{
+  width: 7rem;
+  height: 2rem;
+}
+
+.upload-file-changelog{
+  padding-left: 1rem;
+  max-width:30%; 
+  height: 100%;
+  float:left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: justify;
+}
+
+.upload-file-operating{
+  color: #0076cc;
+  max-width: 4rem; 
+  height: 100%;
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: justify;
+}
+.upload-file-button-div{
+  margin-top: 1rem;
+}
+
+.upload-file-button{
+  background-color:#0076cc;
+  color: #fff;
+  border-radius: 3px;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: justify;
+  width:100%;
+}
