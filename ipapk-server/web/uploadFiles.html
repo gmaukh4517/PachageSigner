@@ -1,67 +1,77 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>内部应用分发服务</title>
-<!--H5页面窗口自动调整到设备宽度，并禁止用户缩放页面-->
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-<!--将网站添加到主屏幕快速启动方式，仅针对ios的safari顶端状态条的样式  -->  
+    <meta charset="UTF-8">
+    <title>内部应用分发服务</title>
+    <!--H5页面窗口自动调整到设备宽度，并禁止用户缩放页面-->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <!--将网站添加到主屏幕快速启动方式，仅针对ios的safari顶端状态条的样式  -->
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-<!--忽略将页面中的数字识别为电话号码-->
+    <!--忽略将页面中的数字识别为电话号码-->
     <meta content="telephone=no" name="format-detection">
-<!--忽略Android平台中对邮箱地址的识别 -->   
+    <!--忽略Android平台中对邮箱地址的识别 -->
     <meta name="format-detection" content="email=no" />
     <!--winphone系统a、input标签被点击时产生的半透明灰色背景怎么去掉-->
     <meta name="msapplication-tap-highlight" content="no">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/uploadFiles.css">
     <script src="js/axios.min.js"></script>
     <script src="js/vue.min.js"></script>
 </head>
+
 <body>
-<div class="wrapper">
-	<header class="header">
-    	<div align="center"><h2>应用分发服务</h2></div>
-        <a class="attention" href="/cer/myCA.cer">如果出现【无法验证服务器身份】或【无法链接到】，请点击链接安装证书</a>
-        <p class="attention">iOS 10.3后 默认不信任安装的证书，需要手动信任。</p>
-        <span>设置 > 通用 > 关于 > 证书信任设置 > 对需要的证书启用完全信任</span>
-    </header>
-    <div class="app_wrapper">
-        <div class="upload-drag" id="drop_area">
-            <img src="images/uploadFiles.png" alt=""/>
-            <p>点击上传，或将文件拖拽到此处</p>
-            <div class="upload-hide" id="uploadDemoView">
-                <hr>
-                <img src="" alt="上传成功后渲染" style="max-width: 196px">
+    <div class="wrapper">
+        <header class="header">
+            <div align="center">
+                <h2>应用分发服务</h2>
             </div>
-        </div>
-        <input id="drop_area_file" class="upload-file-input" type="file" accept=".ipa,.apk">
-        <ul>
-            <li v-for="(file, index) in uploadFiles" :class="(uploadFiles.length - index) % 2 === 0 ? 'upload-file-li':''">
-            <div class="upload-file" :id="index">
-                <div class="upload-file-info">
-                    <span>{{file.fileName}}
-                        <br/>
-                    {{file.fileSize}}</span>
-                </div>
-                <div class="upload-file-milieu">
-                    <select class="milieuSelect">
-                        <option v-for="item in milieus" :selected="item.selected">{{ item.milieuName }}</option>
-                    </select>
-                </div>
-                <div class="upload-file-changelog">
-                    <textarea cols="20" rows="4" style="resize: none;">新功能说明</textarea>
-                </div>
-                <div class="upload-file-operating">
-                    <span v-on:click="deleteUploadFile(file,index)">删除</span>
+            <a class="attention" href="/cer/myCA.cer">如果出现【无法验证服务器身份】或【无法链接到】，请点击链接安装证书</a>
+            <p class="attention">iOS 10.3后 默认不信任安装的证书，需要手动信任。</p>
+            <span>设置 > 通用 > 关于 > 证书信任设置 > 对需要的证书启用完全信任</span>
+        </header>
+        <div class="app_wrapper">
+            <div class="upload-drag" id="drop_area">
+                <img src="images/uploadFiles.png" alt="" />
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="upload-hide" id="uploadDemoView">H
+                    <hr>
+                    <img src="" alt="上传成功后渲染" style="max-width: 196px">
                 </div>
             </div>
-            </li>
-        </ul>
-        <div class="upload-file-button-div">
-            <div class="upload-file-button" v-on:click="submitUploadFiles">上传</div>
+            <input id="drop_area_file" class="upload-file-input" type="file" accept=".ipa,.apk">
+            <ul>
+                <li v-for="(file, index) in uploadFiles" :class="(uploadFiles.length - index) % 2 === 0 ? 'upload-file-li':''">
+                    <div class="upload-file" :id="index">
+                        <div class="upload-file-info">
+                            <span>{{file.fileName}}
+                                <br />
+                                {{file.fileSize}}</span>
+                        </div>
+                        <div class="upload-file-milieu">
+                            <select class="milieuSelect">
+                                <option v-for="item in milieus" :selected="item.selected">{{ item.milieuName }}</option>
+                            </select>
+                        </div>
+                        <div class="upload-file-changelog">
+                            <textarea cols="20" rows="4" style="resize: none;">新功能说明</textarea>
+                        </div>
+                        <div class="upload-file-operating">
+                            <span v-on:click="deleteUploadFile(file,index)">删除</span>
+                        </div>
+                    </div>
+                    <div class="progress-wrapper">
+                        <div class="progress-progress" :style="file.fileUploadStyle"></div>
+                        <div class="progress-rate">{{(file.fileUploadRate*100).toFixed(2)}}%</div>
+                    </div>
+                </li>
+            </ul>
+            <div class="upload-file-button-div">
+                <div class="upload-file-button" v-on:click="submitUploadFiles">上传</div>
+            </div>
         </div>
     </div>
-</div>
 </body>
 <script src="js/uploadFiles.js"></script>
+
 </html>
